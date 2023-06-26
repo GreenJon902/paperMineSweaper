@@ -1,7 +1,6 @@
 package com.greenjon902.paperminesweaper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Game {
@@ -37,7 +36,7 @@ public class Game {
 						}
 					}
 				} else {
-					rendered[x][y] = '█';
+					rendered[x][y] = '#';
 				}
 			}
 		}
@@ -76,7 +75,7 @@ public class Game {
 		generated = true;
 	}
 
-	public void reveal(int x, int y) {
+	public boolean reveal(int x, int y) {
 		if (!generated) {
 			generate(x, y);
 		}
@@ -87,6 +86,8 @@ public class Game {
 				reveal(xy[0], xy[1]);
 			}
 		}
+
+		return is_bomb[x][y];
 	}
 
 	private int[][] get_adj(int x, int y) {
