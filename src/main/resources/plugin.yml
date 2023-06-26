@@ -1,0 +1,4 @@
+name: paperMineSweaper
+version: '${project.version}'
+main: com.greenjon902.paperminesweaper.PaperMineSweaper
+api-version: '1.20'
