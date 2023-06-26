@@ -61,6 +61,14 @@
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+
+      <repository>
+          <releases>
+              <enabled>true</enabled>
+          </releases>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+      </repository>
   </repositories>
 
   <dependencies>
@@ -69,6 +77,18 @@
           <artifactId>paper-api</artifactId>
           <version>1.20-R0.1-SNAPSHOT</version>
           <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>net.projecttl</groupId>
+          <artifactId>InventoryGUI-api</artifactId>
+          <version>4.3.1</version>
+      </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.13.1</version>
+          <scope>test</scope>
       </dependency>
   </dependencies>
 </project>
