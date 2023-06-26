@@ -23,7 +23,7 @@ public class Game {
 	public char[][] render() {
 		char[][] rendered = new char[width()][height()];
 		for (int x=0; x<width(); x++) {
-			for (int y=0; y<width(); y++) {
+			for (int y=0; y<height(); y++) {
 				if (uncovered[x][y]) {
 					if (is_bomb[x][y]) {
 						rendered[x][y] = 'b';

@@ -8,8 +8,9 @@ public class Listener implements org.bukkit.event.Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
+		String title = event.getView().getTitle();
 		int i = event.getSlot();
 
-		GameGUI.playerClicked(player, i);
+		GameGUI.playerClicked(player, i, title);
 	}
 }

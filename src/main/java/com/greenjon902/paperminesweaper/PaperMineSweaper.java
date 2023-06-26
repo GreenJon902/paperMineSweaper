@@ -1,5 +1,6 @@
 package com.greenjon902.paperminesweaper;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,11 +9,11 @@ public final class PaperMineSweaper extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("/minesweaper").setExecutor((commandSender, command, s, strings) -> {
+        getCommand("minesweaper").setExecutor((commandSender, command, s, strings) -> {
             if (commandSender instanceof Player && commandSender.hasPermission("minesweaper")) {
                 new GameGUI((Player) commandSender);
             } else {
-                commandSender.sendMessage("Ye no, you can't do that");
+                commandSender.sendMessage(Component.text("Ye no, you can't do that"));
             }
             return true;
         });
