@@ -39,6 +39,7 @@ public class GameGUI implements Listener {
 					case 'b' -> item = new ItemStack(Material.TNT);
 					case '#' -> item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
 					case ' ' -> item = new ItemStack(Material.AIR);
+					case 'f' -> item = new ItemStack(Material.RED_BANNER);
 					default -> {
 						item = new ItemStack(Material.PLAYER_HEAD);
 						ItemMeta im = item.getItemMeta();
@@ -53,9 +54,14 @@ public class GameGUI implements Listener {
 		}
 	}
 
-	public static boolean playerClicked(Player player, int i, String title) {
+	public static boolean playerClicked(Player player, int i, String title, boolean is_flag) {
 		if (games.containsKey(player) && Objects.equals(title, "Minesweaper")) {
-			games.get(player).slotClicked(i);
+			if (is_flag) {
+				games.get(player).flag(i);
+			}
+			else {
+				games.get(player).slotClicked(i);
+			}
 			return true;
 		}
 		return false;
@@ -71,5 +77,13 @@ public class GameGUI implements Listener {
 			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
 					() -> player.setHealth(0), 60);
 		}
+	}
+
+	private void flag(int i) {
+		int x = i % game.width();
+		int y = (int) Math.floor((double) i / game.width());
+
+		game.toggle_flag(x, y);
+		redraw();
 	}
 }

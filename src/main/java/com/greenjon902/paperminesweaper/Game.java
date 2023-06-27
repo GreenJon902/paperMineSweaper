@@ -6,16 +6,23 @@ import java.util.Random;
 public class Game {
 	private final boolean[][] is_bomb;  // Bomb is true
 	private final boolean[][] uncovered;
+	private final boolean[][] flagged;
 	private boolean generated = false;
 
 	public Game(int width, int height) {
 		this.is_bomb = new boolean[width][height];
 		this.uncovered = new boolean[width][height];
+		this.flagged = new boolean[width][height];
 	}
 
 	public Game(boolean [][] is_bomb, boolean[][] uncovered) {
+		this(is_bomb, uncovered, new boolean[is_bomb.length][is_bomb[0].length]);
+	}
+
+	public Game(boolean [][] is_bomb, boolean[][] uncovered, boolean[][] flagged) {
 		this.is_bomb = is_bomb;
 		this.uncovered = uncovered;
+		this.flagged = flagged;
 		generated = true;
 	}
 
@@ -36,7 +43,11 @@ public class Game {
 						}
 					}
 				} else {
-					rendered[x][y] = '#';
+					if (flagged[x][y]) {
+						rendered[x][y] = 'f';
+					} else {
+						rendered[x][y] = '#';
+					}
 				}
 			}
 		}
@@ -114,5 +125,9 @@ public class Game {
 				uncovered[x][y] = true;
 			}
 		}
+	}
+
+	public void toggle_flag(int x, int y) {
+		flagged[x][y] = !flagged[x][y];
 	}
 }
