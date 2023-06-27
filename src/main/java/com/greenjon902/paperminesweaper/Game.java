@@ -1,6 +1,7 @@
 package com.greenjon902.paperminesweaper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Game {
@@ -73,12 +74,17 @@ public class Game {
 	}
 
 	private void generate(int invalid_x, int invalid_y) {
+		ArrayList<int[]> invalids = get_adj(invalid_x, invalid_y);
+		invalids.add(new int[] {invalid_x, invalid_y});
+
 		int bombs = 0;
-		while (bombs != 10) {
+		int i = 0;
+		while (bombs < 10 && i < 100) {
+			i += 1;
 			int x = new Random().nextInt(width());
 			int y = new Random().nextInt(height());
 
-			if (!(x == invalid_x && y == invalid_y && !is_bomb[x][y])) {
+			if (!(Utils.intArrayListContainsArray(invalids, new int[] {x, y}) || is_bomb[x][y])) {
 				is_bomb[x][y] = true;
 				bombs += 1;
 			}
@@ -103,7 +109,7 @@ public class Game {
 		return is_bomb[x][y];
 	}
 
-	private int[][] get_adj(int x, int y) {
+	private ArrayList<int[]> get_adj(int x, int y) {
 		ArrayList<int[]> list = new ArrayList<>();
 		for (int x2=-1; x2<2; x2++) {
 			for (int y2=-1; y2<2; y2++) {
@@ -116,12 +122,12 @@ public class Game {
 				}
 			}
 		}
-		return list.toArray(int[][]::new);
+		return list;
 	}
 
 	public void uncover_all() {
 		for (int x = 0; x < width(); x++) {
-			for (int y = 0; y < width(); y++) {
+			for (int y = 0; y < height(); y++) {
 				uncovered[x][y] = true;
 			}
 		}
