@@ -1,16 +1,21 @@
 package com.greenjon902.paperminesweaper;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 public class GameGUI implements Listener {
 	private static final HashMap<Player, GameGUI> games = new HashMap<>();
@@ -42,8 +47,25 @@ public class GameGUI implements Listener {
 					case 'f' -> item = new ItemStack(Material.RED_BANNER);
 					default -> {
 						item = new ItemStack(Material.PLAYER_HEAD);
-						ItemMeta im = item.getItemMeta();
+						SkullMeta im = (SkullMeta) item.getItemMeta();
 						im.displayName(Component.text(rendered[x][y]));
+
+						final PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+						profile.getProperties().add(new ProfileProperty("textures", switch (rendered[x][y]) {
+							case '0' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjQ1ODFkMzk1NWU5YWNkNTEzZDI4ZGQzMjI1N2FlNTFmZjdmZDZkZjA1YjVmNGI5MjFmMWRlYWU0OWIyMTcyIn19fQ==";
+							case '1' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQ2NWNlODNmMWFhNWI2ZTg0ZjliMjMzNTk1MTQwZDViNmJlY2ViNjJiNmQwYzY3ZDFhMWQ4MzYyNWZmZCJ9fX0=";
+							case '2' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQ1NGQxZjhmYmY5MWIxZTdmNTVmMWJkYjI1ZTJlMzNiYWY2ZjQ2YWQ4YWZiZTA4ZmZlNzU3ZDMwNzVlMyJ9fX0=";
+							case '3' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjFlNGVhNTliNTRjYzk5NDE2YmM5ZjYyNDU0OGRkYWMyYTM4ZWVhNmEyZGJmNmU0Y2NkODNjZWM3YWM5NjkifX19";
+							case '4' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGI1MjdiMjRiNWQyYmNkYzc1NmY5OTVkMzRlYWU1NzlkNzQxNGIwYTVmMjZjNGZmYTRhNTU4ZWNhZjZiNyJ9fX0=";
+							case '5' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODRjOGMzNzEwZGEyNTU5YTI5MWFkYzM5NjI5ZTljY2VhMzFjYTlkM2QzNTg2YmZlYTZlNmUwNjEyNGIzYyJ9fX0=";
+							case '6' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTIxMTNjNjA0YTIyYjIyNGZiZDM1OTdmOTA0YTdmOTIyN2E3YzFhZTUzNDM5Yzk2OTk0YmZhMjNiNTJlYiJ9fX0=";
+							case '7' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjRiZGU3OWY4NGZjNWYzZjFmYmM1YmMwMTA3MTA2NmJkMjBjZDI2M2ExNjU0ZDY0ZDYwZDg0MjQ4YmE5Y2QifX19";
+							case '8' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjJlZTEzNzFkOGYwZjVhOGI3NTljMjkxODYzZDcwNGFkYzQyMWFkNTE5ZjE3NDYyYjg3NzA0ZGJmMWM3OGE0In19fQ==";
+							case '9' -> "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM3OGYyZWQ3NzNjZDZiMjU1MTgxOTIxOGJmZjg3YzM3NGE0YjdkNmYzYjJjMjM2Nzg3ZWE3OTM2N2JmNmQxYyJ9fX0=";
+							default -> throw new IllegalStateException("Unexpected value: " + rendered[x][y]);
+						}));
+
+						im.setPlayerProfile(profile);
 						item.setItemMeta(im);
 					}
 				}
