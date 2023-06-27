@@ -53,10 +53,12 @@ public class GameGUI implements Listener {
 		}
 	}
 
-	public static void playerClicked(Player player, int i, String title) {
+	public static boolean playerClicked(Player player, int i, String title) {
 		if (games.containsKey(player) && Objects.equals(title, "Minesweaper")) {
 			games.get(player).slotClicked(i);
+			return true;
 		}
+		return false;
 	}
 
 	private void slotClicked(int i) {

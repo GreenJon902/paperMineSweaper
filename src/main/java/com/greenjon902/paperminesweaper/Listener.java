@@ -11,6 +11,9 @@ public class Listener implements org.bukkit.event.Listener {
 		String title = event.getView().getTitle();
 		int i = event.getSlot();
 
-		GameGUI.playerClicked(player, i, title);
+		boolean cancel = GameGUI.playerClicked(player, i, title);
+		if (cancel) {
+			event.setCancelled(true);
+		}
 	}
 }
