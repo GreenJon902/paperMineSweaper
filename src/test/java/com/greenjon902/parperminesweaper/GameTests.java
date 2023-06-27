@@ -39,7 +39,7 @@ public class GameTests {
 
 	@Test
 	public void testRenderRandomBoard() {
-		Game game = new Game(10, 10);
+		Game game = new Game(10, 10, 10);
 		run(game);
 	}
 

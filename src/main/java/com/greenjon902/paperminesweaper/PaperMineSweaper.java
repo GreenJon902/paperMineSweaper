@@ -9,9 +9,15 @@ public final class PaperMineSweaper extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("minesweaper").setExecutor((commandSender, command, s, strings) -> {
+        getCommand("minesweaper").setExecutor((commandSender, command, label, args) -> {
             if (commandSender instanceof Player && commandSender.hasPermission("minesweaper")) {
-                new GameGUI((Player) commandSender);
+                int bombs = 10;
+                if (args.length != 0) {
+                    try {
+                        bombs = Integer.parseInt(args[0]);
+                    } catch (NumberFormatException ignored) {}
+                }
+                new GameGUI((Player) commandSender, bombs);
             } else {
                 commandSender.sendMessage(Component.text("Ye no, you can't do that"));
             }

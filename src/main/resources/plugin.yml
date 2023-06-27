@@ -7,3 +7,4 @@ commands:
   minesweaper:
     aliases: ms
     permission: minesweaper
+    usage: /<command> [bombcount=10]

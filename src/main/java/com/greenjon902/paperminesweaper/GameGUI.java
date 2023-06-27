@@ -26,9 +26,9 @@ public class GameGUI implements Listener {
 	private final Game game;
 	private final Inventory inventory;
 
-	public GameGUI(Player player) {
+	public GameGUI(Player player, int bombs) {
 		this.player = player;
-		game = new Game(9, 6);
+		game = new Game(9, 6, bombs);
 		inventory = Bukkit.getServer().createInventory(null, 54, Component.text("Minesweaper"));
 		player.openInventory(inventory);
 

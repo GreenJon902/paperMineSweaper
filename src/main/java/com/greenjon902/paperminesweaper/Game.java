@@ -8,15 +8,14 @@ public class Game {
 	private final boolean[][] is_bomb;  // Bomb is true
 	private final boolean[][] uncovered;
 	private final boolean[][] flagged;
+	private final int bomb_count;
 	private boolean generated = false;
 
-	private int reveal_count;
-
-	public Game(int width, int height) {
+	public Game(int width, int height, int bomb_count) {
 		this.is_bomb = new boolean[width][height];
 		this.uncovered = new boolean[width][height];
+		this.bomb_count = bomb_count;
 		this.flagged = new boolean[width][height];
-		reveal_count = 0;
 	}
 
 	public Game(boolean [][] is_bomb, boolean[][] uncovered) {
@@ -28,6 +27,7 @@ public class Game {
 		this.uncovered = uncovered;
 		this.flagged = flagged;
 		generated = true;
+		bomb_count = -1; // I don't really wanna calculate this... so i wont
 	}
 
 
@@ -82,7 +82,7 @@ public class Game {
 
 		int bombs = 0;
 		int i = 0;  // So it doesnt loop forever
-		while (bombs < 10 && i < 1000) {
+		while (bombs < this.bomb_count && i < 1000) {
 			i += 1;
 
 			int x = new Random().nextInt(width());
