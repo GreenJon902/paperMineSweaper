@@ -72,11 +72,12 @@ public class GameGUI implements Listener {
 					}
 				}
 
-				item = new ItemStack(Material.PLAYER_HEAD);
 				ItemMeta im = item.getItemMeta();
-				im.displayName(Component.empty());
-				im.setCustomModelData((int) rendered[x][y]);
-				item.setItemMeta(im);
+				if (Objects.nonNull(im)) {
+					im.displayName(Component.empty());
+					im.setCustomModelData((int) rendered[x][y]);
+					item.setItemMeta(im);
+				}
 
 				int i = x + y * game.width();
 				inventory.setItem(i, item);
