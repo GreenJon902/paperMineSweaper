@@ -81,9 +81,11 @@ public class Game {
 		}
 
 		uncovered[x][y] = true;
-		for (int[] xy : get_adj(x, y)) {
-			if (!uncovered[xy[0]][xy[1]] && !is_bomb[xy[0]][xy[1]] && (get_surrounding_bomb_count(xy[0], xy[1]) == 0)) {
-				reveal(xy[0], xy[1]);
+		if (get_surrounding_bomb_count(x, y) == 0) {
+			for (int[] xy : get_adj(x, y)) {
+				if (!uncovered[xy[0]][xy[1]] && !is_bomb[xy[0]][xy[1]]) {
+					reveal(xy[0], xy[1]);
+				}
 			}
 		}
 
