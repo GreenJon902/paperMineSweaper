@@ -10,10 +10,13 @@ public class Game {
 	private final boolean[][] flagged;
 	private boolean generated = false;
 
+	private int reveal_count;
+
 	public Game(int width, int height) {
 		this.is_bomb = new boolean[width][height];
 		this.uncovered = new boolean[width][height];
 		this.flagged = new boolean[width][height];
+		reveal_count = 0;
 	}
 
 	public Game(boolean [][] is_bomb, boolean[][] uncovered) {
@@ -136,5 +139,16 @@ public class Game {
 
 	public void toggle_flag(int x, int y) {
 		flagged[x][y] = !flagged[x][y];
+	}
+
+	public boolean is_won() {
+		for (int x = 0; x < width(); x++) {
+			for (int y = 0; y < height(); y++) {
+				if (!uncovered[x][y] && !is_bomb[x][y]) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

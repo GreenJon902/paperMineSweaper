@@ -3,6 +3,8 @@ package com.greenjon902.paperminesweaper;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -103,8 +105,17 @@ public class GameGUI implements Listener {
 		redraw();
 
 		if (is_bomb) {
+			games.remove(player);
 			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
 					() -> player.setHealth(0), 60);
+		} else if (game.is_won()) {
+			games.remove(player);
+			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
+					() -> {
+				player.closeInventory();
+				player.showTitle(Title.title(Component.text("You Win!!").color(TextColor.color(0, 255, 0)),
+						Component.text("Now go touch grass")));
+					}, 60);
 		}
 	}
 
