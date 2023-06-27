@@ -78,9 +78,10 @@ public class Game {
 		invalids.add(new int[] {invalid_x, invalid_y});
 
 		int bombs = 0;
-		int i = 0;
-		while (bombs < 10 && i < 100) {
+		int i = 0;  // So it doesnt loop forever
+		while (bombs < 10 && i < 1000) {
 			i += 1;
+
 			int x = new Random().nextInt(width());
 			int y = new Random().nextInt(height());
 
