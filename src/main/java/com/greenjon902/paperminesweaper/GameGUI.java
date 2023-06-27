@@ -105,17 +105,18 @@ public class GameGUI implements Listener {
 		boolean is_bomb = game.reveal(x, y);
 		redraw();
 
-		if (is_bomb) {
-			games.remove(player);
-			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
-					() -> player.setHealth(0), 60);
-		} else if (game.is_won()) {
+		if (is_bomb || game.is_won()) {
+
+			String title = is_bomb ? "You looses!!" : "You Win!!";
+			String subtitle = is_bomb ? "Get gud, bozo" : "Now go touch grass";
+			int color = is_bomb ? 0xff0000 : 0x00ff00;
+
 			games.remove(player);
 			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
 					() -> {
-				player.closeInventory();
-				player.showTitle(Title.title(Component.text("You Win!!").color(TextColor.color(0, 255, 0)),
-						Component.text("Now go touch grass")));
+						player.closeInventory();
+						player.showTitle(Title.title(Component.text(title).color(TextColor.color(color)),
+								Component.text(subtitle)));
 					}, 60);
 		}
 	}
