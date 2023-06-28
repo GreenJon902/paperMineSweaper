@@ -88,11 +88,12 @@ public class GameGUI implements Listener {
 
 	public static boolean playerClicked(Player player, int i, String title, boolean is_flag) {
 		if (games.containsKey(player) && Objects.equals(title, "Minesweaper")) {
-			if (is_flag) {
-				games.get(player).flag(i);
-			}
-			else {
-				games.get(player).slotClicked(i);
+			if (games.get(player) != null) {
+				if (is_flag) {
+					games.get(player).flag(i);
+				} else {
+					games.get(player).slotClicked(i);
+				}
 			}
 			return true;
 		}
@@ -111,12 +112,13 @@ public class GameGUI implements Listener {
 			String subtitle = is_bomb ? "Get gud, bozo" : "Now go touch grass";
 			int color = is_bomb ? 0xff0000 : 0x00ff00;
 
-			games.remove(player);
+			games.put(player, null);  // So event is canceled but not modifiable.
 			Bukkit.getScheduler().runTaskLater(PaperMineSweaper.getPlugin(PaperMineSweaper.class),
 					() -> {
 						player.closeInventory();
 						player.showTitle(Title.title(Component.text(title).color(TextColor.color(color)),
 								Component.text(subtitle)));
+						games.remove(player);
 					}, 60);
 		}
 	}
